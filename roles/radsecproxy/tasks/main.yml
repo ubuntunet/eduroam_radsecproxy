@@ -1,0 +1,48 @@
+- name: Install Compiler and stuff
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
+  with_items:
+    - build-essential
+    - nettle-dev
+    - libssl-dev
+
+- name: Download Radsecproxy
+  get_url: >
+    url=https://software.nordu.net/radsecproxy/radsecproxy-{{ radsecproxy_version }}.tar.xz
+    dest=/opt/radsecproxy-{{ radsecproxy_version }}.tar.xz
+    checksum={{ radsecproxy_checksum }}
+
+- name: Extract radsecproxy
+  unarchive: >
+    src=/opt/radsecproxy-{{ radsecproxy_version }}.tar.xz 
+    dest=/opt
+    copy=no
+
+- name: Configure radsecproxy
+  command: ./configure --enable-fticks chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+
+- name: make radsecproxy
+  command: make chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+
+- name: make check radsecproxy
+  command: make check chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+
+- name: make install radsecproxy
+  command: make install chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+
+
+
+
+- name: Copy radsecproxy config file
+  template: > 
+    src={{ radsecproxy_config }} 
+    dest=/usr/local/etc/radsecproxy.conf
+    
+
+# - name: Don't check for schema version. TEMPORARY FIX. TO BE REMOVED LATER
+#   copy: src=functions.inc dest=/usr/share/fusiondirectory/include/functions.inc
+#   notify: 
+#     - restart apache
+#     - restart slapd
+
+# - name: Fix permission for /etc/FusionDirectory
+#   file: path=/etc/fusiondirectory group=www-data mode=0750 state=directory recurse=yes

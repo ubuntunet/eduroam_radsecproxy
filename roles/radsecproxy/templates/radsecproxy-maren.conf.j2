@@ -1,0 +1,423 @@
+ListenUDP   *:1812
+#ListenTCP    *:2083
+
+LogLevel    3
+LogDestination    file:///var/log/radsecproxy.log
+
+# give RADIUS client and server stanzas the same identifier if they are the same
+# entity. In this case, misconfigured clients can automatically be prevented
+# from creating a routing loop.
+
+LoopPrevention    On
+
+# add the path to your own certificate below. If no password is needed,
+# comment that line. 
+
+#tls default {
+#    CRLCheck       On
+#    CACertificatePath    /etc/radsecproxy/certs/ca/
+#    CertificateFile    /etc/radsecproxy/certs/__CERT_PEM__
+#    CertificateKeyFile   /etc/radsecproxy/certs/__CERT_KEY__
+#    CertificateKeyPassword __CERT_PASS__
+#}
+
+rewrite defaultclient {
+    removeAttribute 64
+    removeAttribute 65
+    removeAttribute 81
+}
+
+#client 127.0.0.1 {
+# type  udp
+# secret  testing123
+#}
+
+#client ::1 {
+# type udp
+# secret  testing123
+#}
+
+# add connected RADIUS service providers like in the stanza below.
+# duplicate this stanza as many times as needed
+
+#client __DESCRITIVE_NAME__ {
+# host __IP_ADDR__ {
+# type UDP
+# secret  __SP_SECRET__
+#}
+
+# all incoming RadSec connections can be handled with this stanza
+# eduroam certificate validation checks use CA membership and
+# proof of eligibility by URN
+
+#client incoming {
+# host *
+# type    TLS
+# secret radsec
+# matchcertificateattribute SubjectAltName:URI:/^https://registry.edugain.org/resolver\?urn=urn:geant:eduroam:component:(sp|proxy|confederation-root):.*$/
+#}
+
+# incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
+
+client SA5-monitoring-incoming {
+ host 161.53.2.204
+ type UDP
+ secret {{ monitoring_secret }}
+}
+
+# list RADIUS servers of your connected realms below.
+
+#client __DESCRIPTIVE_NAME__ {
+# host __IP_ADDR__
+# type UDP
+# secret __SERVER_SECRET__
+#}
+
+#server __DESCRIPTIVE_NAME__ {
+# host __IP_ADDR__
+# type UDP
+# secret __SERVER_SECRET__
+# statusserver on
+#}
+
+#
+# Stage 1: Setup an Access Point Connected to the .mw FLR
+#
+#client Stage1AP_SP {
+# host __IP_ADDRESS_OF_ACCESS_POINT 
+# type UDP
+# secret Roo0Ahcie7eifaec
+#}
+
+#
+# Stage 2: Setup a RADIUS server to support @maren.ac.mw
+#
+
+#
+# client + server for @maren.ac.mw
+#
+# uncomment the following configuration lines to 
+# activate and restart radsecproxy
+#
+#client MAREN_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# secret efieh7Meesh7cha7Xeuxionaes0ju4u
+# type UDP
+#}
+#server MAREN_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# secret efieh7Meesh7cha7Xeuxionaes0ju4u
+# type UDP
+# statusserver on
+#}
+
+#
+# Stage 3: Start connecting institutions
+#
+# uncomment the following configuration lines to 
+# activate and restart radsecproxy.
+# you must activate the complementary realm {}
+# configuration also.
+#
+
+#
+# client + server for @cunima.ac.mw
+#
+#client CUniMA_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# type UDP
+# secret olaesh5egh8ae0aeph0ainahbo4Igim
+#}
+#server CUniMA_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# type UDP
+# secret olaesh5egh8ae0aeph0ainahbo4Igim
+# statusserver on
+#}
+
+#
+# client + server for @mzuni.ac.mw
+#
+#client MZUni_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# type UDP
+# secret TajahngiGh2gohPo3quajoo0tu1choh
+#}
+#server MZUni_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# type UDP
+# secret TajahngiGh2gohPo3quajoo0tu1choh
+# statusserver on
+#}
+
+#
+# client + server for @cc.ac.mw
+#
+#client CC_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# type UDP
+# secret ceequu1Isae5eehaicah3leigei6Iob
+#}
+#server CC_IdP_SP {
+# host __IP_ADDRESS_OF_RADIUS_SERVER__
+# type UDP
+# secret ceequu1Isae5eehaicah3leigei6Iob
+# statusserver on
+#}
+
+client MEDCOL_IdP_SP {
+ host 41.70.24.6
+ type UDP
+ secret {{ medcol_idp_secret }}
+}
+
+server MEDCOL_IdP_SP {
+ host 41.70.24.6
+ type UDP
+ secret {{ medcol_idp_secret }}
+ statusserver on
+}
+
+#
+# client XYZ conference
+#
+#client XYZ_Conference_SP {
+# host __IP_ADDRESS_OF_THE_XYZ_CONFERENCE_WIRELESS_CONTROLLER_HERE__ 
+# type UDP
+# secret Kiix7Uu5ahCahz7m
+#}
+#
+# NB: the above is a HOTSPOT only configuration as the conference wouldn't offer
+#     its own eduroam accounts - it would only connect its wireless infrastructure
+#     to the .mw Federation Level RADIUS to offer eduroam.
+#
+
+#
+# You may want to move these files outside of the main RadSecProxy configuration such as
+#
+#include /etc/radsecproxy.d/conf_files/clients.conf
+#include /etc/radsecproxy.d/conf_files/servers.conf
+#include /etc/radsecproxy.d/conf_files/realms.conf
+#
+# or even:
+#
+#include /etc/radsecproxy.d/sites-enabled/*.conf
+#
+#
+
+# list RadSec servers of your connected realms below.
+
+#server __RADSEC_PEER_DNS_NAME__ {
+# type  TLS
+# secret  radsec
+# statusserver on
+# matchcertificateattribute SubjectAltName:URI:/^https://registry.edugain.org/resolver\?urn=urn:geant:eduroam:component:(idp|proxy|confederation-root):.*$/i
+#}
+
+# pre-configured European top-level servers
+# this can be kept literally
+
+# uncomment the next 2 blocks for IPv6 support
+#client etlr1.eduroam.org {
+# host [2001:610:1:80bf:192:87:106:34]
+# type UDP
+# secret paiyapah2eiPhahk
+#
+#server etlr1.eduroam.org {
+# type UDP
+# host [2001:610:1:80bf:192:87:106:34]
+# secret paiyapah2eiPhahk
+# statusserver on
+#}
+client etlr1.eduroam.org {
+  host 192.87.106.34
+  type UDP
+  secret {{ etlr_secret }}
+}
+server etlr1.eduroam.org {
+  type UDP
+  host 192.87.106.34
+  secret {{ etlr_secret }}
+  statusserver on
+}
+
+
+#client etlr2.eduroam.org {
+# type UDP
+# host [2001:878:0:e000:82:e1:f2:6d]
+# secret {{ etlr_secret }}
+#}
+#server etlr2.eduroam.org {
+# type UDP
+# host [2001:878:0:e000:82:e1:f2:6d]
+# secret {{ etlr_secret }}
+# statusserver on
+#}
+#client etlr2.eduroam.org {
+# type UDP
+# host 130.225.242.109
+# secret {{ etlr_secret }}
+#}
+#server etlr2.eduroam.org {
+# type UDP
+# host 130.225.242.109
+# secret {{ etlr_secret }}
+# statusserver on
+#}
+
+# monitoring server
+# you only need to negotiate a shared secret for the UDP connection with the monitoring team at SRCE
+
+server SA5-monitoring-outgoing {
+ host 161.53.2.204
+ type UDP
+ secret {{ monitoring_secret }}
+}
+
+#server TODO:add SRCE RadSec server here {
+# type TLS
+# secret radsec
+# statusserver on
+# matchcertificateattribute SubjectAltName:URI:/^https://registry.edugain.org/resolver\?urn=urn:geant:eduroam:component:confederation-root:Europe:Monitoring:.*/i
+#}
+
+# blacklisting of realms. Add your own if you need to block a realm
+# for whatever reason. 
+
+realm /myabc\.com$ {
+  replymessage "Misconfigured supplicant: default realm of Intel PRO/Wireless supplicant!"
+}
+
+realm /^$ {
+  replymessage "Misconfigured supplicant: empty realm!"
+}
+
+# enter sections for your own realm(s) below, and denote the server stanzas which are responsible
+# for that realm
+# use multiple server lines for a failover backup configuration
+
+#
+# Use one or the other realm patterns below.
+# (^|\.) is a regular expression which allows the delegation of realms such as:
+#       example.ac.mw
+#       staff.example.ac.mw
+#       test.example.ac.mw
+# with one configuration. Otherwise an exact match is required.
+#
+#realm /(^|\.)example\.ac\.mw$ {
+# server EXAMPLE_IdP_SP
+#}
+#realm example.ac.mw {
+# server EXAMPLE_IdP_SP
+#}
+
+#
+# Uncomment these realms to activate the routing configuration
+#
+
+#realm maren.ac.mw {
+# server MAREN_IdP_SP
+#}
+
+#realm cunima.ac.mw {
+# server CUniMA_IdP_SP
+#}
+
+#realm mzuni.ac.mw {
+# server MZUni_IdP_SP
+#}
+
+#realm cc.ac.mw {
+# server CC_IdP_SP
+#}
+
+realm medcol.mw {
+ server MEDCOL_IdP_SP
+}
+
+
+# NB: if an institutional server supports multiple realms (i.e. uni.mw and
+#     uni.AC.mw) then you can have multiple entries for the same server.
+#     You need to ensure that the server will answer to ALL realms.
+
+#realm chanco.unima.mw {
+# server CC_IdP_SP
+#}
+#
+# Note that the server still points to the existing server entry
+# but the realm has been changed.
+
+# ****************
+# *** Warning! ***
+# ****************
+#
+# If you are going to use a non-geographic realm (such as .edu, .net, .org)
+# then you need to co-ordinate with help@eduroam.org to ensure that all 
+# realms where these domain in use are used correctly route messages to you. 
+# This is problematic and is much more likely to cause problems than using .mw
+# domains - reconsider its use.
+#
+#realm xyzproject.example.org {
+# server XYZPROJECT_IdP_SP
+#}
+#
+#realm ipm.org {
+# server IPM_IdP_SP
+#}
+
+# ****************
+# *** Peering! ***
+# ****************
+#
+#realm some-usa-university.edu {
+#      server SOME_USA_UNI_EDU_NONGEO_PEER
+#}
+#
+#NB: The above peering requires a client/server entry and if left commented 
+#    the routing will be via the ETLR1+2 servers. You could speed up 
+#    authentication requests by sending them directly but this complicates
+#    the routing infrastructure and could cause problems. Avoid where possible.
+
+# monitoring realm. This is usually eduroam.tld
+# uncomment either the UDP server or the RadSec server, depending on how you
+# want to forward requests in preference. We suggest using RadSec and commenting
+# RADIUS.
+
+realm /eduroam\.mw {
+ server SA5-monitoring-outgoing
+#  server TODO:SRCE RadSec server
+}
+
+# misconfigured realms
+
+realm /@.*\s.*$/ {
+          replymessage "Misconfigured client: realm should NOT contain whitespace! Rejected by this federation."
+}
+
+realm /^[^@]+$/ {
+          replymessage "Misconfigured client: no AT symbol in realm! Rejected by this federation."
+}
+
+realm /@$/ {
+          replymessage "Misconfigured client: empty realm! Rejected by this federation."
+}
+
+realm /^$/ {
+          replymessage "Misconfigured client: empty! Rejected by this federation."
+}
+
+# the following entry comes after all your known realms. If other realms from your TLD show up,
+# they are not part of the confederation and would introduce loops. Therefore, they are rejected.
+
+realm /\.mw$ {
+  replymessage "Misconfigured supplicant or downstream server: uses unknown realm in this federation!"
+}
+
+# DEFAULT forwarding: to the Top-Level Servers
+
+realm   * {
+  server  etlr1.eduroam.org
+# server  etlr2.eduroam.org
+}
+
+
