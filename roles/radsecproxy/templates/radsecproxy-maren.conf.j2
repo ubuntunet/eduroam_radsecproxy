@@ -11,7 +11,7 @@ LogDestination    file:///var/log/radsecproxy.log
 LoopPrevention    On
 
 # add the path to your own certificate below. If no password is needed,
-# comment that line. 
+# comment that line.
 
 #tls default {
 #    CRLCheck       On
@@ -84,7 +84,7 @@ client SA5-monitoring-incoming {
 # Stage 1: Setup an Access Point Connected to the .mw FLR
 #
 #client Stage1AP_SP {
-# host __IP_ADDRESS_OF_ACCESS_POINT 
+# host __IP_ADDRESS_OF_ACCESS_POINT
 # type UDP
 # secret Roo0Ahcie7eifaec
 #}
@@ -96,7 +96,7 @@ client SA5-monitoring-incoming {
 #
 # client + server for @maren.ac.mw
 #
-# uncomment the following configuration lines to 
+# uncomment the following configuration lines to
 # activate and restart radsecproxy
 #
 #client MAREN_IdP_SP {
@@ -114,7 +114,7 @@ client SA5-monitoring-incoming {
 #
 # Stage 3: Start connecting institutions
 #
-# uncomment the following configuration lines to 
+# uncomment the following configuration lines to
 # activate and restart radsecproxy.
 # you must activate the complementary realm {}
 # configuration also.
@@ -182,7 +182,7 @@ server MEDCOL_IdP_SP {
 # client XYZ conference
 #
 #client XYZ_Conference_SP {
-# host __IP_ADDRESS_OF_THE_XYZ_CONFERENCE_WIRELESS_CONTROLLER_HERE__ 
+# host __IP_ADDRESS_OF_THE_XYZ_CONFERENCE_WIRELESS_CONTROLLER_HERE__
 # type UDP
 # secret Kiix7Uu5ahCahz7m
 #}
@@ -253,17 +253,17 @@ server etlr1.eduroam.org {
 # secret {{ etlr_secret }}
 # statusserver on
 #}
-#client etlr2.eduroam.org {
-# type UDP
-# host 130.225.242.109
-# secret {{ etlr_secret }}
-#}
-#server etlr2.eduroam.org {
-# type UDP
-# host 130.225.242.109
-# secret {{ etlr_secret }}
-# statusserver on
-#}
+client etlr2.eduroam.org {
+ type UDP
+ host 130.225.242.109
+ secret {{ etlr_secret }}
+}
+server etlr2.eduroam.org {
+ type UDP
+ host 130.225.242.109
+ secret {{ etlr_secret }}
+ statusserver on
+}
 
 # monitoring server
 # you only need to negotiate a shared secret for the UDP connection with the monitoring team at SRCE
@@ -282,7 +282,7 @@ server SA5-monitoring-outgoing {
 #}
 
 # blacklisting of realms. Add your own if you need to block a realm
-# for whatever reason. 
+# for whatever reason.
 
 realm /myabc\.com$ {
   replymessage "Misconfigured supplicant: default realm of Intel PRO/Wireless supplicant!"
@@ -352,8 +352,8 @@ realm medcol.mw {
 # ****************
 #
 # If you are going to use a non-geographic realm (such as .edu, .net, .org)
-# then you need to co-ordinate with help@eduroam.org to ensure that all 
-# realms where these domain in use are used correctly route messages to you. 
+# then you need to co-ordinate with help@eduroam.org to ensure that all
+# realms where these domain in use are used correctly route messages to you.
 # This is problematic and is much more likely to cause problems than using .mw
 # domains - reconsider its use.
 #
@@ -373,8 +373,8 @@ realm medcol.mw {
 #      server SOME_USA_UNI_EDU_NONGEO_PEER
 #}
 #
-#NB: The above peering requires a client/server entry and if left commented 
-#    the routing will be via the ETLR1+2 servers. You could speed up 
+#NB: The above peering requires a client/server entry and if left commented
+#    the routing will be via the ETLR1+2 servers. You could speed up
 #    authentication requests by sending them directly but this complicates
 #    the routing infrastructure and could cause problems. Avoid where possible.
 
@@ -385,7 +385,6 @@ realm medcol.mw {
 
 realm /eduroam\.mw {
  server SA5-monitoring-outgoing
-#  server TODO:SRCE RadSec server
 }
 
 # misconfigured realms
