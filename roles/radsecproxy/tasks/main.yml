@@ -1,5 +1,5 @@
 - name: Install Compiler and stuff
-  apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
+  apt: pkg={{ item }} #update_cache=yes cache_valid_time=36000
   with_items:
     - build-essential
     - nettle-dev
@@ -13,7 +13,7 @@
 
 - name: Extract radsecproxy
   unarchive: >
-    src=/opt/radsecproxy-{{ radsecproxy_version }}.tar.xz 
+    src=/opt/radsecproxy-{{ radsecproxy_version }}.tar.xz
     dest=/opt
     copy=no
 
@@ -30,19 +30,20 @@
   command: make install chdir=/opt/radsecproxy-{{ radsecproxy_version }}
 
 
-
-
 - name: Copy radsecproxy config file
-  template: > 
-    src={{ radsecproxy_config }} 
+  template: >
+    src={{ radsecproxy_config }}
     dest=/usr/local/etc/radsecproxy.conf
-    
+  notify: restart radsecproxy
 
-# - name: Don't check for schema version. TEMPORARY FIX. TO BE REMOVED LATER
-#   copy: src=functions.inc dest=/usr/share/fusiondirectory/include/functions.inc
-#   notify: 
-#     - restart apache
-#     - restart slapd
+- name: Copy radsecproxy init file
+  copy: >
+    src=radsecproxy.init-d
+    dest=/etc/init.d/radsecproxy
+  notify: restart radsecproxy
 
-# - name: Fix permission for /etc/FusionDirectory
-#   file: path=/etc/fusiondirectory group=www-data mode=0750 state=directory recurse=yes
+- name: Enable radsecproxy init file
+  command: update-rc.d radsecproxy defaults
+  notify: restart radsecproxy
+
+

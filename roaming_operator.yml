@@ -1,11 +1,11 @@
 - name: Install eduroam Roaming Operator
   hosts: ro
   become: True
-  # vars_files:
-  #   - group_vars/secrets.yml.example
+  vars_files:
+    - group_vars/secrets.yml
   roles:
     - radsecproxy
- 
-  # handlers:
-  #   - name: restart apache
-  #     service: name=apache2 state=restarted
+
+  handlers:
+    - name: restart radsecproxy
+      service: name=radsecproxy state=restarted
