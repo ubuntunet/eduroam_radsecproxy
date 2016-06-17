@@ -60,7 +60,7 @@ rewrite defaultclient {
 # incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
 
 client SA5-monitoring-incoming {
- host 161.53.2.204
+ host {{ monitoring_host }}
  type UDP
  secret {{ monitoring_secret }}
 }
@@ -120,63 +120,23 @@ client SA5-monitoring-incoming {
 # configuration also.
 #
 
-#
-# client + server for @cunima.ac.mw
-#
-#client CUniMA_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret olaesh5egh8ae0aeph0ainahbo4Igim
-#}
-#server CUniMA_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret olaesh5egh8ae0aeph0ainahbo4Igim
-# statusserver on
-#}
+{% for institution in institutions %}
 
-#
-# client + server for @mzuni.ac.mw
-#
-#client MZUni_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret TajahngiGh2gohPo3quajoo0tu1choh
-#}
-#server MZUni_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret TajahngiGh2gohPo3quajoo0tu1choh
-# statusserver on
-#}
+  client {{ institution.name }} {
+    host          {{ institution.host }}
+    type          UDP
+    secret        {{ institution.secret }}
+  }
 
-#
-# client + server for @cc.ac.mw
-#
-#client CC_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret ceequu1Isae5eehaicah3leigei6Iob
-#}
-#server CC_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret ceequu1Isae5eehaicah3leigei6Iob
-# statusserver on
-#}
+  server {{ institution.name }} {
+    host          {{ institution.host }}
+    type          UDP
+    secret        {{ institution.secret }}
+    statusserver  on
+  }
 
-client MEDCOL_IdP_SP {
- host 41.70.24.6
- type UDP
- secret {{ medcol_idp_secret }}
-}
+{% endfor %}
 
-server MEDCOL_IdP_SP {
- host 41.70.24.6
- type UDP
- secret {{ medcol_idp_secret }}
- statusserver on
-}
 
 #
 # client XYZ conference
@@ -217,18 +177,6 @@ server MEDCOL_IdP_SP {
 # pre-configured European top-level servers
 # this can be kept literally
 
-# uncomment the next 2 blocks for IPv6 support
-#client etlr1.eduroam.org {
-# host [2001:610:1:80bf:192:87:106:34]
-# type UDP
-# secret paiyapah2eiPhahk
-#
-#server etlr1.eduroam.org {
-# type UDP
-# host [2001:610:1:80bf:192:87:106:34]
-# secret paiyapah2eiPhahk
-# statusserver on
-#}
 client etlr1.eduroam.org {
   host 192.87.106.34
   type UDP
@@ -241,18 +189,19 @@ server etlr1.eduroam.org {
   statusserver on
 }
 
-
-#client etlr2.eduroam.org {
+# uncomment the next 2 blocks for IPv6 support
+#client etlr1.eduroam.org {
+# host [2001:610:1:80bf:192:87:106:34]
 # type UDP
-# host [2001:878:0:e000:82:e1:f2:6d]
-# secret {{ etlr_secret }}
-#}
-#server etlr2.eduroam.org {
+# secret paiyapah2eiPhahk
+#
+#server etlr1.eduroam.org {
 # type UDP
-# host [2001:878:0:e000:82:e1:f2:6d]
-# secret {{ etlr_secret }}
+# host [2001:610:1:80bf:192:87:106:34]
+# secret paiyapah2eiPhahk
 # statusserver on
 #}
+
 client etlr2.eduroam.org {
  type UDP
  host 130.225.242.109
@@ -264,6 +213,20 @@ server etlr2.eduroam.org {
  secret {{ etlr_secret }}
  statusserver on
 }
+
+# uncomment the next 2 blocks for IPv6 support
+#client etlr2.eduroam.org {
+# type UDP
+# host [2001:878:0:e000:82:e1:f2:6d]
+# secret {{ etlr_secret }}
+#}
+#server etlr2.eduroam.org {
+# type UDP
+# host [2001:878:0:e000:82:e1:f2:6d]
+# secret {{ etlr_secret }}
+# statusserver on
+#}
+
 
 # monitoring server
 # you only need to negotiate a shared secret for the UDP connection with the monitoring team at SRCE
@@ -319,31 +282,19 @@ realm /^$ {
 # server MAREN_IdP_SP
 #}
 
-#realm cunima.ac.mw {
-# server CUniMA_IdP_SP
-#}
+{% for institution in institutions %}
 
-#realm mzuni.ac.mw {
-# server MZUni_IdP_SP
-#}
+  realm {{ institution.realm }} {
+   server {{ institution.name }}
+  }
 
-#realm cc.ac.mw {
-# server CC_IdP_SP
-#}
-
-realm medcol.mw {
- server MEDCOL_IdP_SP
-}
+{% endfor %}
 
 
 # NB: if an institutional server supports multiple realms (i.e. uni.mw and
 #     uni.AC.mw) then you can have multiple entries for the same server.
 #     You need to ensure that the server will answer to ALL realms.
 
-#realm chanco.unima.mw {
-# server CC_IdP_SP
-#}
-#
 # Note that the server still points to the existing server entry
 # but the realm has been changed.
 
@@ -416,7 +367,7 @@ realm /\.mw$ {
 
 realm   * {
   server  etlr1.eduroam.org
-# server  etlr2.eduroam.org
+  server  etlr2.eduroam.org
 }
 
 

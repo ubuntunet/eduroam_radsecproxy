@@ -60,7 +60,7 @@ rewrite defaultclient {
 # incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
 
 #client SA5-monitoring-incoming {
-# host 161.53.2.204
+# host {{ monitoring_host }}
 # type UDP
 # secret __MONITORING_SECRET__
 #}
@@ -120,50 +120,23 @@ rewrite defaultclient {
 # configuration also.
 #
 
-#
-# client + server for @cunima.ac.mw
-#
-#client CUniMA_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret olaesh5egh8ae0aeph0ainahbo4Igim
-#}
-#server CUniMA_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret olaesh5egh8ae0aeph0ainahbo4Igim
-# statusserver on
-#}
+{% for institution in institutions %}
 
-#
-# client + server for @mzuni.ac.mw
-#
-#client MZUni_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret TajahngiGh2gohPo3quajoo0tu1choh
-#}
-#server MZUni_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret TajahngiGh2gohPo3quajoo0tu1choh
-# statusserver on
-#}
+  client {{ institution.name }} {
+    host          {{ institution.host }}
+    type          UDP
+    secret        {{ institution.secret }}
+  }
 
-#
-# client + server for @cc.ac.mw
-#
-#client CC_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret ceequu1Isae5eehaicah3leigei6Iob
-#}
-#server CC_IdP_SP {
-# host __IP_ADDRESS_OF_RADIUS_SERVER__
-# type UDP
-# secret ceequu1Isae5eehaicah3leigei6Iob
-# statusserver on
-#}
+  server {{ institution.name }} {
+    host          {{ institution.host }}
+    type          UDP
+    secret        {{ institution.secret }}
+    statusserver  on
+  }
+
+{% endfor %}
+
 
 #
 # client XYZ conference
@@ -306,17 +279,15 @@ realm /^$ {
 # server MAREN_IdP_SP
 #}
 
-#realm cunima.ac.mw {
-# server CUniMA_IdP_SP
-#}
 
-#realm mzuni.ac.mw {
-# server MZUni_IdP_SP
-#}
+{% for institution in institutions %}
 
-#realm cc.ac.mw {
-# server CC_IdP_SP
-#}
+  realm {{ institution.realm }} {
+   server {{ institution.name }}
+  }
+
+{% endfor %}
+
 
 
 # NB: if an institutional server supports multiple realms (i.e. uni.mw and

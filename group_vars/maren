@@ -1,1 +1,20 @@
 radsecproxy_config: radsecproxy-maren.conf.j2
+institutions:
+  -
+    name: MEDCOL_IdP_SP
+    host: 41.70.24.6
+    realm: medcol.mw
+    secret: "{{ medcol_idp_secret }}"
+
+  -
+    name: KCN_IdP_SP
+    host: 41.70.64.12
+    realm: kcn.mw
+    secret: "{{ kcn_idp_secret }}"
+
+  -
+    name: UBUNTUNET_IdP_SP
+    host: 168.253.217.77
+    realm: ubuntunet.mw
+    secret: "{{ ubuntunet_idp_secret }}"
+
