@@ -34,6 +34,7 @@
   template: >
     src={{ radsecproxy_config }}
     dest=/usr/local/etc/radsecproxy.conf
+    backup=yes
   notify: restart radsecproxy
 
 - name: Copy radsecproxy init file
