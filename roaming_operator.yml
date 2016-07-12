@@ -5,6 +5,7 @@
     - group_vars/secrets.yml
   roles:
     - radsecproxy
+    - newrelic
 
   handlers:
     - name: restart radsecproxy
