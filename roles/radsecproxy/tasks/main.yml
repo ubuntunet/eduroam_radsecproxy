@@ -48,4 +48,9 @@
   command: update-rc.d radsecproxy defaults
   notify: restart radsecproxy
 
-
+- name: Enable logrotation
+  copy: >
+    src=radsecproxy.log
+    dest=/etc/logrotate.d/radsecproxy
+    mode=644
+  notify: restart radsecproxy
