@@ -1,0 +1,20 @@
+#Replace EXAMPLE with the actual name of your config file
+# in roles/radsecproxy/templates
+radsecproxy_config: radsecproxy-EXAMPLE.conf.j2
+
+# Role for monitoring Radius server with NewRelic
+play_newrelic: False
+
+#Replace with your actual member institutions.
+# Replay your playbook for changes to be deployed.
+institutions:
+  -
+    name: MYUNI_IdP_SP
+    host: 1.2.3.4
+    realm: myuni.tld
+    secret: "{{ myuni_idp_secret }}"
+  -
+    name: OTHERUNI_IdP_SP
+    host: 5.6.7.8
+    realm: otheruni.edu
+    secret: "{{ otheruni_idp_secret }}"

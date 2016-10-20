@@ -4,6 +4,35 @@ ListenUDP   *:1812
 LogLevel    3
 LogDestination    file:///var/log/radsecproxy.log
 
+
+# For generating log entries conforming to the F-Ticks system, specify
+# FTicksReporting with one of the following values.
+#   None  -- Do not log in F-Ticks format.  This is the default.
+#   Basic -- Do log in F-Ticks format but do not log VISINST.
+#   Full  -- Do log in F-Ticks format and do log VISINST.
+# Please note that in order to get F-Ticks logging for a given client,
+# its matching client configuration block has to contain the
+# fticksVISCOUNTRY option.
+FTicksReporting Full
+
+# You can optionally specify FTicksMAC in order to determine if and
+# how Calling-Station-Id (users Ethernet MAC address) is being logged.
+#   Static          -- Use a static string as a placeholder for
+#                      Calling-Station-Id.
+#   Original        -- Log Calling-Station-Id as-is.
+#   VendorHashed    -- Keep first three segments as-is, hash the rest.
+#   VendorKeyHashed -- Like VendorHashed but salt with F-Ticks-Key.    This
+#              is the default.
+#   FullyHashed     -- Hash the entire string.
+#   FullyKeyHashed  -- Like FullyHashed but salt with F-Ticks-Key.
+FTicksMAC VendorKeyHashed
+
+# In order to use FTicksMAC with one of VendorKeyHashed or
+# FullyKeyHashed, specify a key with FTicksKey.
+# FTicksKey <key>
+FTicksKey {{ fticks_salt }}
+
+
 # give RADIUS client and server stanzas the same identifier if they are the same
 # entity. In this case, misconfigured clients can automatically be prevented
 # from creating a routing loop.

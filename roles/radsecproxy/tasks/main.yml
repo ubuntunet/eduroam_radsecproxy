@@ -48,4 +48,16 @@
   command: update-rc.d radsecproxy defaults
   notify: restart radsecproxy
 
+- name: Copy rsyslog file for sending FTICKS statistics information
+  template: >
+    src=rsyslog-radsecproxy.conf.j2
+    dest=/etc/rsyslog.d/22-rsyslog-radsecproxy.conf
+    mode=644
+  notify: restart rsyslog
 
+- name: Enable logrotation
+  copy: >
+    src=radsecproxy.log
+    dest=/etc/logrotate.d/radsecproxy
+    mode=644
+  notify: restart rsyslog
