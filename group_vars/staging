@@ -1,1 +1,4 @@
 radsecproxy_config: radsecproxy-example.conf.j2
+
+# Role for monitoring Radius server with NewRelic
+play_newrelic: False
