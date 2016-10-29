@@ -7,12 +7,12 @@ play_newrelic: False
 # Replay your playbook for changes to be deployed.
 institutions:
   -
-    name: MYUNI_IdP_SP
-    host: 1.2.3.4
-    realm: myuni.tld
-    secret: "{{ myuni_idp_secret }}"
+    name: SWITZERLAND
+    host: 168.253.217.71
+    realm: swiss.eduroam.me
+    secret: "{{ swiss_idp_secret }}"
   -
-    name: OTHERUNI_IdP_SP
+    name: MALAWI
     host: 5.6.7.8
-    realm: otheruni.edu
-    secret: "{{ otheruni_idp_secret }}"
+    realm: malawi.eduroam.me
+    secret: "{{ malawi_idp_secret }}"

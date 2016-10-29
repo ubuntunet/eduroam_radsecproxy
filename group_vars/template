@@ -1,6 +1,4 @@
-#Replace EXAMPLE with the actual name of your config file
-# in roles/radsecproxy/templates
-radsecproxy_config: radsecproxy-EXAMPLE.conf.j2
+tld: mw
 
 # Role for monitoring Radius server with NewRelic
 play_newrelic: False
