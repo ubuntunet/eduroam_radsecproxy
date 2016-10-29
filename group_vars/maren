@@ -1,4 +1,12 @@
-radsecproxy_config: radsecproxy-maren.conf.j2
+tld: mw
+#registry_fqdn: eduroam\.maren\.ac\.mw
+
+#radsecproxy_config: radsecproxy-example.conf.j2
+
+# FQDN of default Forwarding Regional Servers
+default_forward1: etlr1.eduroam.org
+default_forward2: etlr2.eduroam.org
+
 
 # Role for monitoring Radius server with NewRelic
 play_newrelic: True
@@ -30,8 +38,8 @@ institutions:
 
   -
     name: POLY_IdP_SP
-    #host: 41.77.11.147
-    host: 10.10.50.153
+    host: 41.77.11.147
+    #host: 10.10.50.153
     realm: poly.ac.mw
     secret: "{{ poly_idp_secret }}"
 
