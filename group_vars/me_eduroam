@@ -1,0 +1,18 @@
+tld: me
+
+# Role for monitoring Radius server with NewRelic
+play_newrelic: False
+
+#Replace with your actual member institutions.
+# Replay your playbook for changes to be deployed.
+institutions:
+  -
+    name: SWITZERLAND
+    host: 168.253.217.71
+    realm: swiss.eduroam.me
+    secret: "{{ swiss_idp_secret }}"
+  -
+    name: MALAWI
+    host: 5.6.7.8
+    realm: malawi.eduroam.me
+    secret: "{{ malawi_idp_secret }}"

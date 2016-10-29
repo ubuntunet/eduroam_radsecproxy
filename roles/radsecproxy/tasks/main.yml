@@ -1,5 +1,5 @@
 - name: Install Compiler and stuff
-  apt: pkg={{ item }} #update_cache=yes cache_valid_time=36000
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=36000
   with_items:
     - build-essential
     - nettle-dev
@@ -32,7 +32,7 @@
 
 - name: Copy radsecproxy config file
   template: >
-    src={{ radsecproxy_config }}
+    src=radsecproxy.conf.j2
     dest=/usr/local/etc/radsecproxy.conf
     backup=yes
   notify: restart radsecproxy
