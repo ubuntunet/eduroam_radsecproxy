@@ -1,7 +1,7 @@
 flr1 ansible_ssh_host=<FQDN or IP> 
 #flra ansible_ssh_host=<FQDN or IP>
 
-[<tld_nren>:children]
+[<eduroam_tld>:children]
 ro
 
 [ro]
