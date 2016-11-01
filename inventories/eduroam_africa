@@ -1,0 +1,13 @@
+#africa1 ansible_ssh_host=168.253.217.78
+africa2 ansible_ssh_host=168.253.217.71
+
+[ro]
+#africa1
+africa2
+
+[ro:vars]
+ansible_user=ubuntu
+
+
+[eduroam_africa:children]
+ro

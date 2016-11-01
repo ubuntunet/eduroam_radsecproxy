@@ -12,18 +12,18 @@
 
 - Copy the inventory template
 
-        cp inventories/template inventories/<tld_nren>
+        cp inventories/template inventories/<eduroam_tld>
 
 
 - Open your new inventory and replace 
   - <FQDN or IP> with the actual URL/IP of your server
-  - <tld_nren> with your actual inventory file name
+  - <eduroam_tld> with your actual inventory file name
 
 - Copy the group_vars template
 
-        cp group_vars/template group_vars/<tld_nren>
+        cp group_vars/template group_vars/<eduroam_tld>
 
-- Adopt the variables in group_vars/<tld_nren> to your liking
+- Adopt the variables in group_vars/<eduroam_tld> to your liking
 
 - Create the secret.yml file that contains your sensitive information. Add your credentials.
 
@@ -31,4 +31,10 @@
 
 - Run the playbook. Whenever you change something in the playbook, just replay this command.
 
-        ansible-playbook -i inventories/<tld_nren> roaming_operator.yml
+        ansible-playbook -i inventories/<eduroam_tld> roaming_operator.yml
+
+## Debugging
+
+Follow the log of the Radius Proxy 
+
+      tailf /var/log/radsecproxy.log

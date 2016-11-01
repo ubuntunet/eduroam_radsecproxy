@@ -206,56 +206,33 @@ client SA5-monitoring-incoming {
 # pre-configured European top-level servers
 # this can be kept literally
 
-client etlr1.eduroam.org {
-  host 192.87.106.34
-  type UDP
-  secret {{ etlr_secret }}
-}
-server etlr1.eduroam.org {
-  type UDP
-  host 192.87.106.34
-  secret {{ etlr_secret }}
-  statusserver on
-}
 
-# uncomment the next 2 blocks for IPv6 support
-#client etlr1.eduroam.org {
-# host [2001:610:1:80bf:192:87:106:34]
-# type UDP
-# secret {{ etlr_secret }}
-#
-#server etlr1.eduroam.org {
-# type UDP
-# host [2001:610:1:80bf:192:87:106:34]
-# secret {{ etlr_secret }}
-# statusserver on
-#}
+{% for proxy in continental_proxies %}
+  client {{ proxy.name }} {
+    host {{ proxy.ip4 }}
+    type {{ proxy.type }}
+    secret {{ proxy_secret }}
+  }
+  server {{ proxy.name }} {
+    host {{ proxy.ip4 }}
+    type {{ proxy.type }}
+    secret {{ proxy_secret }}
+    statusserver on
+  }
 
-client etlr2.eduroam.org {
- type UDP
- host 130.225.242.109
- secret {{ etlr_secret }}
-}
-server etlr2.eduroam.org {
- type UDP
- host 130.225.242.109
- secret {{ etlr_secret }}
- statusserver on
-}
-
-# uncomment the next 2 blocks for IPv6 support
-#client etlr2.eduroam.org {
-# type UDP
-# host [2001:878:0:e000:82:e1:f2:6d]
-# secret {{ etlr_secret }}
-#}
-#server etlr2.eduroam.org {
-# type UDP
-# host [2001:878:0:e000:82:e1:f2:6d]
-# secret {{ etlr_secret }}
-# statusserver on
-#}
-
+  # uncomment the next 2 blocks for IPv6 support
+  # client {{ proxy.name }} {
+  #   host {{ proxy.ip6 }}
+  #   type {{ proxy.type }}
+  #   secret {{ proxy_secret }}
+  # }
+  # server {{ proxy.name }} {
+  #   host {{ proxy.ip6 }}
+  #   type {{ proxy.type }}
+  #   secret {{ proxy_secret }}
+  #   statusserver on
+  # }
+{% endfor %}
 
 # monitoring server
 # you only need to negotiate a shared secret for the UDP connection with the monitoring team at SRCE
@@ -363,7 +340,7 @@ realm /^$ {
 # want to forward requests in preference. We suggest using RadSec and commenting
 # RADIUS.
 
-realm /eduroam\.mw {
+realm /eduroam\.{{ tld }} {
  server SA5-monitoring-outgoing
 }
 
@@ -395,8 +372,9 @@ realm /\.{{ tld }}$ {
 # DEFAULT forwarding: to the Top-Level Servers
 
 realm   * {
-  server  etlr1.eduroam.org
-  server  etlr2.eduroam.org
+  {% for proxy in continental_proxies %}
+    server  {{ proxy.name }}
+  {% endfor %}
 }
 
 

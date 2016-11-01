@@ -1,18 +1,12 @@
-tld: <TLD>
+tld: ch
 
 #Replace with your actual member institutions.
 institutions:
   -
-    name: <MYUNI_IdP_SP>
-    host: 1.2.3.4
-    realm: myuni.tld
-    secret: "{{ myuni_idp_secret }}"
-  # -
-  #   name: OTHERUNI_IdP_SP
-  #   host: 5.6.7.8
-  #   realm: otheruni.edu
-  #   secret: "{{ otheruni_idp_secret }}"
-
+    name: chris.eduroam.me
+    host: 168.253.217.8
+    realm: chris.eduroam.me
+    secret: "{{ chris_idp_secret }}"
 
 # FQDN of default Forwarding Continental Servers
 continental_proxies:
