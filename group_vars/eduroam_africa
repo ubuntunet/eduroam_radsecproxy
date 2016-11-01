@@ -1,0 +1,87 @@
+tld: africa
+
+#Replace with your actual member institutions.
+# Replay your playbook for changes to be deployed.
+institutions:
+  -
+    name: SWITZERLAND
+    host: ch.eduroam.me
+    realm: eduroam.ch
+    secret: "{{ ch_nro_secret }}"
+  -
+    name: BURUNDI
+    host: bi.eduroam.me
+    realm: eduroam.bi
+    secret: "{{ bi_nro_secret }}"
+  -
+    name: ETHIOPIA
+    host: et.eduroam.me
+    realm: eduroam.et
+    secret: "{{ et_nro_secret }}"
+  -
+    name: KENYA
+    host: ke.eduroam.me
+    realm: eduroam.ke
+    secret: "{{ ke_nro_secret }}"
+  -
+    name: MADAGASCAR
+    host: mg.eduroam.me
+    realm: eduroam.me
+    secret: "{{ mg_nro_secret }}"
+  -
+    name: MALAWI
+    host: mw.eduroam.me
+    realm: eduroam.mw
+    secret: "{{ mw_nro_secret }}"
+  -
+    name: MOZAMBIQUE
+    host: mz.eduroam.me
+    realm: eduroam.mz
+    secret: "{{ mz_nro_secret }}"
+  -
+    name: SUDAN
+    host: sd.eduroam.me
+    realm: eduroam.sd
+    secret: "{{ sd_nro_secret }}"
+  -
+    name: SENEGAL
+    host: sn.eduroam.me
+    realm: eduroam.sn
+    secret: "{{ sn_nro_secret }}"
+  -
+    name: SOMALIA
+    host: so.eduroam.me
+    realm: eduroam.so
+    secret: "{{ so_nro_secret }}"
+  -
+    name: TANZANIA
+    host: tz.eduroam.me
+    realm: eduroam.tz
+    secret: "{{ tz_nro_secret }}"
+  -
+    name: UGANDA
+    host: ug.eduroam.me
+    realm: eduroam.ug
+    secret: "{{ ug_nro_secret }}"
+  -
+    name: ZAMBIA
+    host: zm.eduroam.me
+    realm: eduroam.zm
+    secret: "{{ zm_nro_secret }}"
+
+# FQDN of default Forwarding Continental Servers
+continental_proxies:
+  -
+    name: etlr1.eduroam.org
+    ip4: 192.87.106.34
+    ip6: 0:0:0:0:0:0:0:0
+    type: UDP
+  -
+    name: etlr2.eduroam.org
+    ip4: 130.225.242.109
+    ip6: 0:0:0:0:0:0:0:0
+    type: UDP
+
+# Role for monitoring Radius server with NewRelic
+play_newrelic: False
+

@@ -1,0 +1,26 @@
+tld: ch
+
+#Replace with your actual member institutions.
+institutions:
+  -
+    name: chris.eduroam.me
+    host: 168.253.217.8
+    realm: chris.eduroam.me
+    secret: "{{ chris_idp_secret }}"
+
+# FQDN of default Forwarding Continental Servers
+continental_proxies:
+  -
+    name: africa1.eduroam.me
+    ip4: 168.253.217.78
+    ip6: 0:0:0:0:0:0:0:0
+    type: UDP
+  -
+    name: africa2.eduroam.me
+    ip4: 168.253.217.71
+    ip6: 0:0:0:0:0:0:0:0
+    type: UDP
+
+# Role for monitoring Radius server with NewRelic
+play_newrelic: False
+
