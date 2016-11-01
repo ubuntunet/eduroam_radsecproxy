@@ -13,7 +13,7 @@
 
   roles:
     - radsecproxy
-    - { role: newrelic, when: play_newrelic == True }
+    # - { role: newrelic, when: play_newrelic == True }
 
   handlers:
     - name: restart radsecproxy
