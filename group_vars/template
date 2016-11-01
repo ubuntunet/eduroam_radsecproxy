@@ -1,19 +1,32 @@
-tld: mw
+tld: <TLD>
 
 #Replace with your actual member institutions.
-
+institutions:
   -
-    name: MYUNI_IdP_SP
+    name: <MYUNI_IdP_SP>
     host: 1.2.3.4
     realm: myuni.tld
     secret: "{{ myuni_idp_secret }}"
+  # -
+  #   name: OTHERUNI_IdP_SP
+  #   host: 5.6.7.8
+  #   realm: otheruni.edu
+  #   secret: "{{ otheruni_idp_secret }}"
+
+
+# FQDN of default Forwarding Continental Servers
+continental_proxies:
   -
-    name: OTHERUNI_IdP_SP
-    host: 5.6.7.8
-    realm: otheruni.edu
-    secret: "{{ otheruni_idp_secret }}"
+    name: africa1.eduroam.me
+    ip4: 168.253.217.78
+    ip6: 0:0:0:0:0:0:0:0
+    type: UDP
+  -
+    name: africa2.eduroam.me
+    ip4: 168.253.217.71
+    ip6: 0:0:0:0:0:0:0:0
+    type: UDP
 
-
-# Enable Role for monitoring Radius server with NewRelic?
+# Role for monitoring Radius server with NewRelic
 play_newrelic: False
 
