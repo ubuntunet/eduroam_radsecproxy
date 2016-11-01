@@ -6,67 +6,67 @@ institutions:
   -
     name: SWITZERLAND
     host: ch.eduroam.me
-    realm: eduroam.ch
+    realm: /(^|\.)ch
     secret: "{{ ch_nro_secret }}"
   -
     name: BURUNDI
     host: bi.eduroam.me
-    realm: eduroam.bi
+    realm: /(^|\.)bi
     secret: "{{ bi_nro_secret }}"
   -
     name: ETHIOPIA
     host: et.eduroam.me
-    realm: eduroam.et
+    realm: /(^|\.)et
     secret: "{{ et_nro_secret }}"
   -
     name: KENYA
     host: ke.eduroam.me
-    realm: eduroam.ke
+    realm: /(^|\.)ke
     secret: "{{ ke_nro_secret }}"
   -
     name: MADAGASCAR
     host: mg.eduroam.me
-    realm: eduroam.me
+    realm: /(^|\.)mg
     secret: "{{ mg_nro_secret }}"
   -
     name: MALAWI
     host: mw.eduroam.me
-    realm: eduroam.mw
+    realm: /(^|\.)mw
     secret: "{{ mw_nro_secret }}"
   -
     name: MOZAMBIQUE
     host: mz.eduroam.me
-    realm: eduroam.mz
+    realm: /(^|\.)mz
     secret: "{{ mz_nro_secret }}"
   -
     name: SUDAN
     host: sd.eduroam.me
-    realm: eduroam.sd
+    realm: /(^|\.)sd
     secret: "{{ sd_nro_secret }}"
   -
     name: SENEGAL
     host: sn.eduroam.me
-    realm: eduroam.sn
+    realm: /(^|\.)sn
     secret: "{{ sn_nro_secret }}"
   -
     name: SOMALIA
     host: so.eduroam.me
-    realm: eduroam.so
+    realm: /(^|\.)so
     secret: "{{ so_nro_secret }}"
   -
     name: TANZANIA
     host: tz.eduroam.me
-    realm: eduroam.tz
+    realm: /(^|\.)tz
     secret: "{{ tz_nro_secret }}"
   -
     name: UGANDA
     host: ug.eduroam.me
-    realm: eduroam.ug
+    realm: /(^|\.)ug
     secret: "{{ ug_nro_secret }}"
   -
     name: ZAMBIA
     host: zm.eduroam.me
-    realm: eduroam.zm
+    realm: /(^|\.)zm
     secret: "{{ zm_nro_secret }}"
 
 # FQDN of default Forwarding Continental Servers
