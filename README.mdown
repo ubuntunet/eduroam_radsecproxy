@@ -35,6 +35,6 @@
 
 ## Debugging
 
-Follow the log of the Radius Proxy 
+Follow the log of the Radius Proxy, it might help if you increase the LogLevel to 4 or 5 in /usr/local/etc/radsecproxy.conf
 
       tailf /var/log/radsecproxy.log
