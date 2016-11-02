@@ -4,7 +4,7 @@
 
 - Clone the repository from Github
 
-        git clone https://github.com/ubuntunet/eduroam_flr.git
+        git clone --recursive https://github.com/ubuntunet/eduroam_flr.git
 
 - Change into the newly created directory
 
