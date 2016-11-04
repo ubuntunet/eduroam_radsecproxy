@@ -9,18 +9,27 @@ institutions:
     secret: "{{ chris_idp_secret }}"
 
 # FQDN of default Forwarding Continental Servers
-continental_proxies:
+regional_proxies:
   -
     name: africa1.eduroam.me
     ip4: 168.253.217.78
-    ip6: 0:0:0:0:0:0:0:0
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
     type: UDP
   -
     name: africa2.eduroam.me
     ip4: 168.253.217.71
-    ip6: 0:0:0:0:0:0:0:0
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
     type: UDP
+
+# Monitoring and Statistics Servers
+monitoring:
+  host: 161.53.2.204
+  realm: /eduroam\.{{ tld }}
+fticks_server: 161.53.2.204
 
 # Role for monitoring Radius server with NewRelic
 play_newrelic: False
-

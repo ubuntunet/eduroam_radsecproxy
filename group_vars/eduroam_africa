@@ -7,70 +7,70 @@ institutions:
     name: SWITZERLAND
     host: ch.eduroam.me
     realm: /(^|\.)ch
-    secret: "{{ ch_nro_secret }}"
+    secret: "{{ ch_flr_secret }}"
   -
     name: BURUNDI
     host: bi.eduroam.me
     realm: /(^|\.)bi
-    secret: "{{ bi_nro_secret }}"
+    secret: "{{ bi_flr_secret }}"
   -
     name: ETHIOPIA
     host: et.eduroam.me
     realm: /(^|\.)et
-    secret: "{{ et_nro_secret }}"
+    secret: "{{ et_flr_secret }}"
   -
     name: KENYA
     host: ke.eduroam.me
     realm: /(^|\.)ke
-    secret: "{{ ke_nro_secret }}"
+    secret: "{{ ke_flr_secret }}"
   -
     name: MADAGASCAR
     host: mg.eduroam.me
     realm: /(^|\.)mg
-    secret: "{{ mg_nro_secret }}"
+    secret: "{{ mg_flr_secret }}"
   -
     name: MALAWI
     host: mw.eduroam.me
     realm: /(^|\.)mw
-    secret: "{{ mw_nro_secret }}"
+    secret: "{{ mw_flr_secret }}"
   -
     name: MOZAMBIQUE
     host: mz.eduroam.me
     realm: /(^|\.)mz
-    secret: "{{ mz_nro_secret }}"
+    secret: "{{ mz_flr_secret }}"
   -
     name: SUDAN
     host: sd.eduroam.me
     realm: /(^|\.)sd
-    secret: "{{ sd_nro_secret }}"
+    secret: "{{ sd_flr_secret }}"
   -
     name: SENEGAL
     host: sn.eduroam.me
     realm: /(^|\.)sn
-    secret: "{{ sn_nro_secret }}"
+    secret: "{{ sn_flr_secret }}"
   -
     name: SOMALIA
     host: so.eduroam.me
     realm: /(^|\.)so
-    secret: "{{ so_nro_secret }}"
+    secret: "{{ so_flr_secret }}"
   -
     name: TANZANIA
     host: tz.eduroam.me
     realm: /(^|\.)tz
-    secret: "{{ tz_nro_secret }}"
+    secret: "{{ tz_flr_secret }}"
   -
     name: UGANDA
     host: ug.eduroam.me
     realm: /(^|\.)ug
-    secret: "{{ ug_nro_secret }}"
+    secret: "{{ ug_flr_secret }}"
   -
     name: ZAMBIA
     host: zm.eduroam.me
     realm: /(^|\.)zm
-    secret: "{{ zm_nro_secret }}"
+    secret: "{{ zm_flr_secret }}"
 
 # FQDN of default Forwarding Continental Servers
-continental_proxies:
+regional_proxies:
   -
     name: etlr1.eduroam.org
     ip4: 192.87.106.34
@@ -82,6 +82,13 @@ continental_proxies:
     ip6: 0:0:0:0:0:0:0:0
     type: UDP
 
+# Monitoring and Statistics Servers
+monitoring:
+  host: 161.53.2.204
+  realm: /eduroam\.{{ tld }}
+fticks_server: 161.53.2.204
+
 # Role for monitoring Radius server with NewRelic
 play_newrelic: False
+
 

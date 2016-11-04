@@ -1,6 +1,6 @@
 tld: <TLD>
 
-#Replace with your actual member institutions.
+#Replace with your actual member institutions
 institutions:
   -
     name: <MYUNI_IdP_SP>
@@ -10,22 +10,49 @@ institutions:
   # -
   #   name: OTHERUNI_IdP_SP
   #   host: 5.6.7.8
-  #   realm: otheruni.edu
+  #   realm: otheruni.tld
   #   secret: "{{ otheruni_idp_secret }}"
 
 
 # FQDN of default Forwarding Continental Servers
-continental_proxies:
+regional_proxies:
+  # Europe
   -
-    name: africa1.eduroam.me
-    ip4: 168.253.217.78
-    ip6: 0:0:0:0:0:0:0:0
+    name: etlr1.eduroam.org
+    ip4: 192.87.106.34
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
     type: UDP
   -
-    name: africa2.eduroam.me
-    ip4: 168.253.217.71
-    ip6: 0:0:0:0:0:0:0:0
+    name: etlr2.eduroam.org
+    ip4: 130.225.242.109
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
     type: UDP
+
+  # Africa
+  # -
+  #   name: africa1.eduroam.me
+  #   ip4: 168.253.217.78
+  #   ip6:
+  #     enabled: false
+  #     address: 0:0:0:0:0:0:0:0
+  #   type: UDP
+  # -
+  #   name: africa2.eduroam.me
+  #   ip4: 168.253.217.71
+  #   ip6:
+  #     enabled: false
+  #     address: 0:0:0:0:0:0:0:0
+  #   type: UDP
+
+# Monitoring and Statistics Servers. Can usually be left as is.
+monitoring:
+  host: 161.53.2.204
+  realm: /eduroam\.{{ tld }}
+fticks_server: 161.53.2.204
 
 # Role for monitoring Radius server with NewRelic
 play_newrelic: False
