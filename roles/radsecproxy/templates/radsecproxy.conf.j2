@@ -89,7 +89,7 @@ rewrite defaultclient {
 # incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
 
 client SA5-monitoring-incoming {
- host {{ monitoring_host }}
+ host {{ monitoring.host }}
  type UDP
  secret {{ monitoring_secret }}
 }
@@ -207,38 +207,38 @@ client SA5-monitoring-incoming {
 # this can be kept literally
 
 
-{% for proxy in continental_proxies %}
-  client {{ proxy.name }} {
-    host {{ proxy.ip4 }}
-    type {{ proxy.type }}
-    secret {{ proxy_secret }}
+{% for rlr in regional_proxies %}
+  client {{ rlr.name }} {
+    host {{ rlr.ip4 }}
+    type {{ rlr.type }}
+    secret {{ rlr_secret }}
   }
-  server {{ proxy.name }} {
-    host {{ proxy.ip4 }}
-    type {{ proxy.type }}
-    secret {{ proxy_secret }}
+  server {{ rlr.name }} {
+    host {{ rlr.ip4 }}
+    type {{ rlr.type }}
+    secret {{ rlr_secret }}
     statusserver on
   }
 
-  # uncomment the next 2 blocks for IPv6 support
-  # client {{ proxy.name }} {
-  #   host {{ proxy.ip6 }}
-  #   type {{ proxy.type }}
-  #   secret {{ proxy_secret }}
-  # }
-  # server {{ proxy.name }} {
-  #   host {{ proxy.ip6 }}
-  #   type {{ proxy.type }}
-  #   secret {{ proxy_secret }}
-  #   statusserver on
-  # }
+  {% if rlr.ip6.enabled == true %}
+    client {{ rlr.name }} {
+      host {{ rlr.ip6 }}
+      type {{ rlr.type }}
+      secret {{ rlr_secret }}
+    }
+    server {{ rlr.name }} {
+      host {{ rlr.ip6 }}
+      type {{ rlr.type }}
+      secret {{ rlr_secret }}
+      statusserver on
+    }
+  {% endif %}
 {% endfor %}
 
-# monitoring server
-# you only need to negotiate a shared secret for the UDP connection with the monitoring team at SRCE
-
+# Monitoring Server
+# Negotiate a shared secret with the monitoring team at SRCE
 server SA5-monitoring-outgoing {
- host 161.53.2.204
+ host {{ monitoring.host }}
  type UDP
  secret {{ monitoring_secret }}
 }
@@ -340,7 +340,7 @@ realm /^$ {
 # want to forward requests in preference. We suggest using RadSec and commenting
 # RADIUS.
 
-realm /eduroam\.{{ tld }} {
+realm {{ monitoring.realm }} {
  server SA5-monitoring-outgoing
 }
 
@@ -372,8 +372,8 @@ realm /\.{{ tld }}$ {
 # DEFAULT forwarding: to the Top-Level Servers
 
 realm   * {
-  {% for proxy in continental_proxies %}
-    server  {{ proxy.name }}
+  {% for rlr in regional_proxies %}
+    server  {{ rlr.name }}
   {% endfor %}
 }
 
