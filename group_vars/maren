@@ -1,15 +1,4 @@
 tld: mw
-#registry_fqdn: eduroam\.maren\.ac\.mw
-
-#radsecproxy_config: radsecproxy-example.conf.j2
-
-# FQDN of default Forwarding Regional Servers
-default_forward1: etlr1.eduroam.org
-default_forward2: etlr2.eduroam.org
-
-
-# Role for monitoring Radius server with NewRelic
-play_newrelic: True
 
 institutions:
   -
@@ -42,4 +31,34 @@ institutions:
     #host: 10.10.50.153
     realm: poly.ac.mw
     secret: "{{ poly_idp_secret }}"
+
+
+# FQDN of default Forwarding Continental Servers
+regional_proxies:
+  # Europe
+  -
+    name: etlr1.eduroam.org
+    ip4: 192.87.106.34
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
+    type: UDP
+  -
+    name: etlr2.eduroam.org
+    ip4: 130.225.242.109
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
+    type: UDP
+
+
+
+# Monitoring and Statistics Servers
+monitoring:
+  host: 161.53.2.204
+  realm: /eduroam\.maren\.ac\.{{ tld }}
+fticks_server: 161.53.2.204
+
+# Role for monitoring Radius server with NewRelic
+play_newrelic: True
 
