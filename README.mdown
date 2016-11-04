@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ubuntunet/eduroam_flr.png?branch=master)](https://travis-ci.org/ubuntunet/eduroam_flr)
+
 # Ansible Playbook for an eduroam Federation Level Roaming Proxy
 
 ## Provisioning
