@@ -10,28 +10,27 @@
 
 - name: Download Radsecproxy
   get_url:
-    url: https://software.nordu.net/radsecproxy/radsecproxy-{{ radsecproxy_version }}.tar.xz
-    dest: /opt/radsecproxy-{{ radsecproxy_version }}.tar.xz
-    checksum: "{{ radsecproxy_checksum }}"
+    url: https://software.nordu.net/radsecproxy/radsecproxy-{{ radsecproxy.version }}.tar.xz
+    dest: /opt/radsecproxy-{{ radsecproxy.version }}.tar.xz
+    checksum: "{{ radsecproxy.checksum }}"
 
 - name: Extract radsecproxy
   unarchive:
-    src: /opt/radsecproxy-{{ radsecproxy_version }}.tar.xz
+    src: /opt/radsecproxy-{{ radsecproxy.version }}.tar.xz
     dest: /opt
     copy: no
 
 - name: Configure radsecproxy
-  command: ./configure --enable-fticks chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+  command: ./configure --enable-fticks chdir=/opt/radsecproxy-{{ radsecproxy.version }}
 
 - name: make radsecproxy
-  command: make chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+  command: make chdir=/opt/radsecproxy-{{ radsecproxy.version }}
 
 - name: make check radsecproxy
-  command: make check chdir=/opt/radsecproxy-{{ radsecproxy_version }}
+  command: make check chdir=/opt/radsecproxy-{{ radsecproxy.version }}
 
 - name: make install radsecproxy
-  command: make install chdir=/opt/radsecproxy-{{ radsecproxy_version }}
-
+  command: make install chdir=/opt/radsecproxy-{{ radsecproxy.version }}
 
 - name: Copy radsecproxy config file
   template:

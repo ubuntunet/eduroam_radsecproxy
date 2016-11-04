@@ -14,7 +14,6 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/local/sbin/radsecproxy
-#DAEMON=/usr/sbin/radsecproxy
 NAME="radsecproxy"
 DESC="RadSec proxy"
 PIDFILE=/var/run/$NAME.pid
