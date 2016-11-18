@@ -1,3 +1,8 @@
+# Creating the encrypted secret file
+# https://docs.travis-ci.com/user/encrypting-files/
+# travis encrypt-file group_vars/secrets.yml --add
+# You might need to login first: travis login
+
 language: python
 python: '2.7'
 sudo: true
