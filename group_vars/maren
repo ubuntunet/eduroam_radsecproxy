@@ -56,7 +56,10 @@ regional_proxies:
 # Monitoring and Statistics Servers
 monitoring:
   host: 161.53.2.204
-  realm: /eduroam\.maren\.ac\.{{ tld }}
+  realm: eduroam.{{ tld }}
+  #realm: /eduroam\.{{ tld }}
+  #realm: /eduroam\.maren\.ac\.{{ tld }}
+  
 fticks_server: 161.53.2.204
 
 # Role for monitoring Radius server with NewRelic
