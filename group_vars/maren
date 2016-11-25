@@ -1,6 +1,7 @@
 tld: mw
 
 institutions:
+
   -
     name: MEDCOL_IdP_SP
     host: 41.70.24.6
@@ -56,8 +57,8 @@ regional_proxies:
 # Monitoring and Statistics Servers
 monitoring:
   host: 161.53.2.204
-  realm: eduroam.{{ tld }}
-  #realm: /eduroam\.{{ tld }}
+  #realm: eduroam.{{ tld }}
+  realm: /eduroam\.{{ tld }}
   #realm: /eduroam\.maren\.ac\.{{ tld }}
   
 fticks_server: 161.53.2.204
