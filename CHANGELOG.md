@@ -5,4 +5,4 @@ Changelog
 
 * Rename test federation from eduroam.ch to eduroam.me
 * Replace the default forward to use the African instead of European proxies
-* 
+* Remove NewRelic role

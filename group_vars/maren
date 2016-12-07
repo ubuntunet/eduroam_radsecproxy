@@ -63,6 +63,3 @@ monitoring:
   
 fticks_server: 161.53.2.204
 
-# Role for monitoring Radius server with NewRelic
-play_newrelic: True
-
