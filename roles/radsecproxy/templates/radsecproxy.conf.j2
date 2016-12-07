@@ -119,9 +119,6 @@ client 127.0.0.1 {
 #
 # client + server for @nren.tld
 #
-# uncomment the following configuration lines to
-# activate and restart radsecproxy
-#
 #client NREN_IdP_SP {
 # host __IP_ADDRESS_OF_RADIUS_SERVER__
 # secret Kw4jAMGm236DB7yk94OAF6wUARc0l5vh
@@ -145,19 +142,19 @@ client 127.0.0.1 {
 
 {% for institution in institutions %}
 
-  client {{ institution.name }} {
-    host          {{ institution.host }}
-    type          UDP
-    secret        {{ institution.secret }}
-    FTicksVISCOUNTRY {{ tld | upper }}
-  }
+client {{ institution.name }} {
+  host          {{ institution.host }}
+  type          UDP
+  secret        {{ institution.secret }}
+  FTicksVISCOUNTRY {{ tld | upper }}
+}
 
-  server {{ institution.name }} {
-    host          {{ institution.host }}
-    type          UDP
-    secret        {{ institution.secret }}
-    statusserver  on
-  }
+server {{ institution.name }} {
+  host          {{ institution.host }}
+  type          UDP
+  secret        {{ institution.secret }}
+  statusserver  on
+}
 
 {% endfor %}
 
@@ -206,12 +203,12 @@ client 127.0.0.1 {
   client {{ rlr.name }} {
     host {{ rlr.ip4 }}
     type {{ rlr.type }}
-    secret {{ rlr_secret }}
+    secret {{ rlr.secret }}
   }
   server {{ rlr.name }} {
     host {{ rlr.ip4 }}
     type {{ rlr.type }}
-    secret {{ rlr_secret }}
+    secret {{ rlr.secret }}
     statusserver on
   }
 
@@ -219,12 +216,12 @@ client 127.0.0.1 {
     client {{ rlr.name }} {
       host {{ rlr.ip6 }}
       type {{ rlr.type }}
-      secret {{ rlr_secret }}
+      secret {{ rlr.secret }}
     }
     server {{ rlr.name }} {
       host {{ rlr.ip6 }}
       type {{ rlr.type }}
-      secret {{ rlr_secret }}
+      secret {{ rlr.secret }}
       statusserver on
     }
   {% endif %}
@@ -234,18 +231,6 @@ client 127.0.0.1 {
 # Negotiate a shared secret with the monitoring team at SRCE
 
 # incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
-
-#client SA5-monitoring {
-# host {{ monitoring.host }}
-# type UDP
-# secret {{ monitoring_secret }}
-#}
-
-#server SA5-monitoring {
-# host {{ monitoring.host }}
-# type UDP
-# secret {{ monitoring_secret }}
-#}
 
 client SA5-monitoring-incoming {
  host {{ monitoring.host }}
@@ -357,7 +342,6 @@ realm /^$ {
 # RADIUS.
 
 realm {{ monitoring.realm }} {
- #server SA5-monitoring
  server SA5-monitoring-outgoing
 }
 
