@@ -45,7 +45,7 @@ regional_proxies:
       address: 0:0:0:0:0:0:0:0
     type: UDP
     secret: "{{ etlr1_secret }}"
- -
+  -
     name: etlr2.eduroam.org
     ip4: 130.225.242.109
     ip6:
