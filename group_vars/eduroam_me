@@ -11,7 +11,7 @@ institutions:
 # FQDN of default Forwarding Continental Servers
 regional_proxies:
   -
-    name: ATLR_WACREN
+    name: atlr.wacren.net
     ip4: 168.253.217.78
     ip6:
       enabled: false
@@ -19,7 +19,7 @@ regional_proxies:
     type: UDP
     secret: "{{ atlr_wacren_secret }}"
   -
-    name: ATLR_UBUNTUNET
+    name: atlr.ubuntunet.net
     ip4: 168.253.217.71
     ip6:
       enabled: false
