@@ -7,12 +7,12 @@ institutions:
     host: 1.2.3.4
     realm: <MYUNI.TLD>
     #Set the secret in secrets.yml, not here!
-    secret: "{{ <MYUNI>_idp_secret }}"
+    secret: "{{ <MYUNI>_secret }}"
   # -
   #   name: OTHERUNI_IdP_SP
   #   host: 5.6.7.8
   #   realm: <OTHERUNI.TLD>
-  #   secret: "{{ <OTHERUNI>_idp_secret }}"
+  #   secret: "{{ <OTHERUNI>_secret }}"
 
 
 ## Forwarding Continental Servers
