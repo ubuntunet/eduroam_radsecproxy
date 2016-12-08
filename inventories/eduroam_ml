@@ -1,4 +1,4 @@
-flr1 ansible_ssh_host=168.253.217.XX
+flr1 ansible_ssh_host=168.253.217.27
 
 [ro]
 flr1
