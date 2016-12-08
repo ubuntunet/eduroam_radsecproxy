@@ -8,5 +8,5 @@ flra
 [ro:vars]
 ansible_user=ubuntu
 
-[maren:children]
+[eduroam_mw:children]
 ro
