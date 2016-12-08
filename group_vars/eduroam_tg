@@ -1,0 +1,40 @@
+tld: tg
+
+#Replace with your actual member institutions.
+institutions:
+  -
+    name: TOGOREN
+    host: 178.79.155.177
+    realm: togoren.tg
+    secret: "{{ tg_togoren_secret }}"
+
+  -
+    name: UNI_LOME
+    host: 168.253.217.24
+    realm: uni.tg
+    secret: "{{ tg_uni_secret }}"
+
+# FQDN of default Forwarding Continental Servers
+regional_proxies:
+  -
+    name: ATLR_WACREN
+    ip4: 168.253.217.78
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
+    type: UDP
+    secret: "{{ atlr_wacren_secret }}"
+  -
+    name: ATLR_UBUNTUNET
+    ip4: 168.253.217.71
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
+    type: UDP
+    secret: "{{ atlr_ubuntunet_secret }}"
+
+# Monitoring and Statistics Servers
+monitoring:
+  host: 161.53.2.204
+  realm: /eduroam\.{{ tld }}
+fticks_server: 161.53.2.204
