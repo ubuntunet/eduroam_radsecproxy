@@ -6,32 +6,32 @@ institutions:
     name: MEDCOL_IdP_SP
     host: 41.70.24.6
     realm: medcol.mw
-    secret: "{{ medcol_idp_secret }}"
+    secret: "{{ mw_medcol_secret }}"
 
   -
     name: KCN_IdP_SP
     host: 41.70.64.12
     realm: kcn.mw
-    secret: "{{ kcn_idp_secret }}"
+    secret: "{{ mw_kcn_secret }}"
 
   -
     name: UBUNTUNET_IdP_SP
     host: 168.253.217.77
     realm: ubuntunet.mw
-    secret: "{{ ubuntunet_idp_secret }}"
+    secret: "{{ mw_ubuntunet_secret }}"
 
   -
     name: MLW_IdP_SP
     host: 41.77.11.187
     realm: mlw.medcol.mw
-    secret: "{{ mlw_idp_secret }}"
+    secret: "{{ mw_mlw_secret }}"
 
   -
     name: POLY_IdP_SP
     host: 41.77.11.147
     #host: 10.10.50.153
     realm: poly.ac.mw
-    secret: "{{ poly_idp_secret }}"
+    secret: "{{ mw_poly_secret }}"
 
 
 # FQDN of default Forwarding Continental Servers
@@ -44,6 +44,7 @@ regional_proxies:
       enabled: false
       address: 0:0:0:0:0:0:0:0
     type: UDP
+    secret: "{{ etlr1_secret }}"
   -
     name: etlr2.eduroam.org
     ip4: 130.225.242.109
@@ -51,6 +52,7 @@ regional_proxies:
       enabled: false
       address: 0:0:0:0:0:0:0:0
     type: UDP
+    secret: "{{ etlr2_secret }}"
 
 
 

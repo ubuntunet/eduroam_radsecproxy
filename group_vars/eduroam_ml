@@ -1,17 +1,17 @@
-tld: me
+tld: ml
 
 #Replace with your actual member institutions.
 institutions:
   -
-    name: UNI_ME
-    host: 168.253.217.18
-    realm: uni.me
-    secret: "{{ me_uni_secret }}"
+    name: MaliREN
+    host: 178.79.155.177
+    realm: maliren.ml
+    secret: "{{ ml_maliren_secret }}"
 
 # FQDN of default Forwarding Continental Servers
 regional_proxies:
   -
-    name: atlr.wacren.net
+    name: ATLR_WACREN
     ip4: 168.253.217.78
     ip6:
       enabled: false
@@ -19,7 +19,7 @@ regional_proxies:
     type: UDP
     secret: "{{ atlr_wacren_secret }}"
   -
-    name: atlr.ubuntunet.net
+    name: ATLR_UBUNTUNET
     ip4: 168.253.217.71
     ip6:
       enabled: false
@@ -32,6 +32,3 @@ monitoring:
   host: 161.53.2.204
   realm: /eduroam\.{{ tld }}
 fticks_server: 161.53.2.204
-
-
-play_newrelic: True
