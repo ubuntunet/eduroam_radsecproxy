@@ -21,6 +21,12 @@ institutions:
     secret: "{{ mw_ubuntunet_secret }}"
 
   -
+    name: UBUNTUNET_NET_IdP_SP
+    host: 168.253.217.77
+    realm: ubuntunet.net
+    secret: "{{ mw_ubuntunet_secret }}"
+
+  -
     name: MLW_IdP_SP
     host: 41.77.11.187
     realm: mlw.medcol.mw
