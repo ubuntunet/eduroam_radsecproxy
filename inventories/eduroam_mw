@@ -1,9 +1,11 @@
-flr1 ansible_ssh_host=41.70.23.5
-flra ansible_ssh_host=168.253.216.149
+flr1 ansible_host=41.70.23.5
+flra ansible_host=196.223.219.91
+flrb ansible_host=168.253.216.149
 
 [ro]
 flr1
 flra
+#flrb
 
 [ro:vars]
 ansible_user=ubuntu
