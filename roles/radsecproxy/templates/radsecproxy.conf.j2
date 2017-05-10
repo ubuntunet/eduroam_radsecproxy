@@ -1,9 +1,9 @@
 ListenUDP   *:1812
 #ListenTCP    *:2083
 
-LogLevel    3
+LogLevel          3
+LogDestination    x-syslog:///LOG_LOCAL3
 #LogDestination    file:///var/log/radsecproxy.log
-LogDestination    x-syslog:///LOG_LOCAL0
 
 # For generating log entries conforming to the F-Ticks system, specify
 # FTicksReporting with one of the following values.
@@ -32,7 +32,7 @@ FTicksMAC VendorKeyHashed
 # FTicksKey <key>
 FTicksKey {{ fticks_salt }}
 
-#FTicksSyslogFacility  x-syslog:///LOG_LOCAL1
+#FTicksSyslogFacility  x-syslog:///LOG_LOCAL4
 
 # give RADIUS client and server stanzas the same identifier if they are the same
 # entity. In this case, misconfigured clients can automatically be prevented
@@ -86,6 +86,15 @@ client 127.0.0.1 {
 # secret radsec
 # matchcertificateattribute SubjectAltName:URI:/^https://registry.edugain.org/resolver\?urn=urn:geant:eduroam:component:(sp|proxy|confederation-root):.*$/
 #}
+
+
+# incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
+
+client SA5-monitoring-incoming {
+ host {{ monitoring.host }}
+ type UDP
+ secret {{ monitoring_secret }}
+}
 
 
 # list RADIUS servers of your connected realms below.
@@ -229,14 +238,6 @@ server {{ institution.name }} {
 
 # Monitoring Server
 # Negotiate a shared secret with the monitoring team at SRCE
-
-# incoming European eduroam Confederation monitoring. Negotiate shared secret with SRCE.
-
-client SA5-monitoring-incoming {
- host {{ monitoring.host }}
- type UDP
- secret {{ monitoring_secret }}
-}
 
 server SA5-monitoring-outgoing {
  host {{ monitoring.host }}
