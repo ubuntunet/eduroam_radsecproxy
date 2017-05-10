@@ -16,8 +16,14 @@ institutions:
 
   -
     name: UBUNTUNET_IdP_SP
-    host: 168.253.217.77
+    host: 196.223.219.90
     realm: ubuntunet.mw
+    secret: "{{ mw_ubuntunet_secret }}"
+
+  -
+    name: UBUNTUNET_NET_IdP_SP
+    host: 196.223.219.90
+    realm: ubuntunet.net
     secret: "{{ mw_ubuntunet_secret }}"
 
   -
