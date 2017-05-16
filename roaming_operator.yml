@@ -5,7 +5,6 @@
   tasks:
     - raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
-
 - name: Install eduroam Roaming Operator
   hosts: ro
   become: True

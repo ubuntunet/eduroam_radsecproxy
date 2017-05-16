@@ -33,7 +33,7 @@ regional_proxies:
       enabled: false
       address: 0:0:0:0:0:0:0:0
     type: UDP
-    secret: "{{ atlr_ubuntunet }}"
+    secret: "{{ atlr_ubuntunet_secret }}"
 
   ## Europe
   # -
