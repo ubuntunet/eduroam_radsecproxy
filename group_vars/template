@@ -25,7 +25,7 @@ regional_proxies:
       enabled: false
       address: 0:0:0:0:0:0:0:0
     type: UDP
-    secret: "{{ atlr_wacren }}"
+    secret: "{{ atlr_wacren_secret }}"
   -
     name: atlr.ubuntunet.net
     ip4: 168.253.217.71
