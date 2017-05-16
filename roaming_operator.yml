@@ -1,5 +1,5 @@
 - name: Make sure Python2 is available
-  hosts: idp
+  hosts: ro
   become: True
   gather_facts: False
   tasks:
