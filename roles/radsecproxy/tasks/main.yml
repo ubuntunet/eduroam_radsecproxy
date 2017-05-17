@@ -1,4 +1,4 @@
-- name: Install Compiler and stuff
+- name: Install Compiler and stuff on Debian
   apt: 
     pkg: "{{ item }}"
     update_cache: yes 
@@ -7,6 +7,21 @@
     - build-essential
     - nettle-dev
     - libssl-dev
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install Compiler and stuff on RedHat
+  package: name={{ item }} state=latest 
+  with_items:
+    - gcc 
+    - gcc-c++ 
+    - kernel-devel
+    - make
+    - libselinux-python
+    # - nettle-dev
+    # - libssl-dev
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+    
+
 
 - name: Download Radsecproxy
   get_url:
@@ -46,9 +61,15 @@
     mode: 755
   notify: restart radsecproxy
 
-- name: Enable radsecproxy init file
+- name: Enable radsecproxy init file on Debian
   command: update-rc.d radsecproxy defaults
   notify: restart radsecproxy
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Enable radsecproxy init file on RedHat
+  command: chkconfig --add radsecproxy
+  notify: restart radsecproxy
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 - name: Copy rsyslog file for sending FTICKS statistics information
   template:
@@ -57,13 +78,21 @@
     mode: 644
   notify: restart rsyslog
 
-- name: Create radsecproxy logfile
+- name: Create radsecproxy logfile on Debian
   file:
     path: /var/log/radsecproxy.log
     state: touch
     owner: syslog
     group: adm
   notify: restart rsyslog
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Create radsecproxy logfile on RedHat
+  file:
+    path: /var/log/radsecproxy.log
+    state: touch
+  notify: restart rsyslog
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 - name: Create fticks logfile
   file:
@@ -72,6 +101,15 @@
     owner: syslog
     group: adm
   notify: restart rsyslog
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Create radsecproxy logfile on RedHat
+  file:
+    path: /var/log/fticks.log
+    state: touch
+  notify: restart rsyslog
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
 
 - name: Enable logrotation
   copy:

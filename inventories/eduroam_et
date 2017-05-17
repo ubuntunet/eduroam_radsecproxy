@@ -1,0 +1,13 @@
+#flr1 ansible_host=192.168.0.130 ansible_user=root
+flra ansible_host=semien.ubuntunet.net ansible_user=ubuntu
+
+[eduroam_et:children]
+ro
+
+[ro]
+#flr1
+flra
+
+[ro:vars]
+#ansible_user=root
+
