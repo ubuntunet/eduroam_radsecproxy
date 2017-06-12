@@ -1,3 +1,8 @@
+[0.6.2] - 2017/06/12
+--------------------
+
+* Enable multiple realms per institutional radius server
+
 [0.6.1] - 2016/12/08
 --------------------
 

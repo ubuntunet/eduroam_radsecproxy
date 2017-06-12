@@ -5,7 +5,8 @@ institutions:
   -
     name: UNI_ME
     host: 168.253.217.18
-    realm: uni.me
+    realms: 
+      - uni.me
     secret: "{{ me_uni_secret }}"
 
 # FQDN of default Forwarding Continental Servers

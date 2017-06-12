@@ -5,13 +5,16 @@ institutions:
   -
     name: <MYUNI_IdP_SP>
     host: 1.2.3.4
-    realm: <MYUNI.TLD>
+    realms: 
+      - <MYUNI.TLD>
+      - <MYUNI.EDU>
     #Set the secret in secrets.yml, not here!
     secret: "{{ <MYUNI>_secret }}"
   # -
   #   name: OTHERUNI_IdP_SP
   #   host: 5.6.7.8
-  #   realm: <OTHERUNI.TLD>
+  #   realms: 
+  #     - <OTHERUNI.TLD>
   #   secret: "{{ <OTHERUNI>_secret }}"
 
 
@@ -56,6 +59,5 @@ regional_proxies:
 # Monitoring and Statistics Servers. Can usually be left as is.
 monitoring:
   host: 161.53.2.204
-  #realm: eduroam.{{ tld }}
   realm: /eduroam\.{{ tld }}
 fticks_server: 161.53.2.204
