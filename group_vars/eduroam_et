@@ -6,7 +6,8 @@ institutions:
     name: EthERNet
     host: 213.55.77.158
     #host: 192.168.0.130
-    realm: ethernet.edu.et
+    realms: 
+      - ethernet.edu.et
     #Set the secret in secrets.yml, not here!
     secret: "{{ et_edu_ethernet_secret }}"
   # -
@@ -57,6 +58,5 @@ regional_proxies:
 # Monitoring and Statistics Servers. Can usually be left as is.
 monitoring:
   host: 161.53.2.204
-  #realm: eduroam.{{ tld }}
   realm: /eduroam\.{{ tld }}
 fticks_server: 161.53.2.204

@@ -5,7 +5,8 @@ institutions:
   -
     name: MaliREN
     host: 178.79.155.177
-    realm: maliren.ml
+    realms: 
+      - maliren.ml
     secret: "{{ ml_maliren_secret }}"
 
 # FQDN of default Forwarding Continental Servers

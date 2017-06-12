@@ -12,17 +12,15 @@
 - name: Install Compiler and stuff on RedHat
   package: name={{ item }} state=latest 
   with_items:
+    - libselinux-python
     - gcc 
     - gcc-c++ 
     - kernel-devel
     - make
-    - libselinux-python
-    # - nettle-dev
-    # - libssl-dev
+    - openssl-devel
+    - nettle-devel
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
     
-
-
 - name: Download Radsecproxy
   get_url:
     url: https://software.nordu.net/radsecproxy/radsecproxy-{{ radsecproxy.version }}.tar.xz
@@ -60,11 +58,20 @@
     dest: /etc/init.d/radsecproxy
     mode: 755
   notify: restart radsecproxy
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Enable radsecproxy init file on Debian
   command: update-rc.d radsecproxy defaults
   notify: restart radsecproxy
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Copy radsecproxy init file
+  copy:
+    src: radsecproxy-redhat.init-d
+    dest: /etc/init.d/radsecproxy
+    mode: 755
+  notify: restart radsecproxy
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 - name: Enable radsecproxy init file on RedHat
   command: chkconfig --add radsecproxy

@@ -1,6 +1,6 @@
 flr1 ansible_host=41.70.23.5
 flra ansible_host=196.223.219.91
-flrb ansible_host=168.253.216.149
+# flrb ansible_host=168.253.216.149
 
 [ro]
 flr1
