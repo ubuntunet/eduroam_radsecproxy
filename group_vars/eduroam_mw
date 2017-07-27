@@ -51,6 +51,16 @@ institutions:
 
 # FQDN of default Forwarding Continental Servers
 regional_proxies:
+  # Africa
+  -
+    name: rps.ubuntunet.net
+    ip4: 196.223.212.2
+    ip6:
+      enabled: false
+      address: 0:0:0:0:0:0:0:0
+    type: UDP
+    secret: "{{ atlr_ubuntunet_secret }}"
+
   # Europe
   -
     name: etlr1.eduroam.org

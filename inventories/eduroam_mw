@@ -1,14 +1,16 @@
-flr1 ansible_host=41.70.23.5
-flra ansible_host=196.223.219.91
-# flrb ansible_host=168.253.216.149
+# MedCol
+#flr1 ansible_host=41.70.23.5
+# Wingu
+flra ansible_host=196.223.219.91 ansible_user=ubuntu
+# Fog@Kampala
+flr1 ansible_host=196.32.213.90 ansible_user=chris
 
 [ro]
 flr1
 flra
-#flrb
 
 [ro:vars]
-ansible_user=ubuntu
+#ansible_user=ubuntu
 
 [eduroam_mw:children]
 ro

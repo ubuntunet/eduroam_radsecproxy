@@ -291,14 +291,11 @@ realm /^$ {
 #}
 
 {% for institution in institutions %}
-
   {% for realm in institution.realms %}
-
     realm {{ realm }} {
      server {{ institution.name }}
     }
   {% endfor %}
-
 {% endfor %}
 
 
